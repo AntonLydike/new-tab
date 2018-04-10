@@ -1,0 +1,147 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background: url("../images/wallpaper.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+body.loaded .loading-overlay {
+  opacity: 0;
+  pointer-events: none;
+}
+
+main {
+  flex: 1 0 auto;
+}
+main > * {
+  margin-top: 24px;
+}
+
+footer.page-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-top: 0px;
+}
+
+footer.page-footer, nav {
+  background: transparent;
+}
+
+nav ul a {
+  color: inherit;
+}
+
+/* clock */
+.clock-container {
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    font-size: 100px;
+    position: relative;
+}
+
+.clock-container > * {
+    flex-basis: 120px;
+}
+
+.clock-hours {
+    text-align: right;
+    padding-right: 29px;
+    position: relative;
+    flex-basis: 217px; /* center the whole clock on the : symbol*/
+}
+
+.clock-hours::after {
+    content: ':';
+    font-size: 1em;
+    top: -7px;
+    right: 2px;
+    position: absolute;
+}
+
+.clock-seconds {
+    font-size: .5em;
+    line-height: 2.3em;
+    flex-basis: 64px;
+}
+
+/* search bar */
+.search-bar {
+  padding: 24px 16px;
+  max-width: 600px;
+  margin-left:auto;
+  margin-right: auto;
+}
+.search-input {
+  padding: 8px 16px 0 16px;
+  border-radius: 3px;
+}
+.search-logo {
+  display: flex;
+  justify-content: center;
+}
+.search-logo img {
+  max-height: 200px;
+  max-width: 500px;
+}
+
+
+/* favorites */
+.favorites-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 900px
+}
+
+.favorites-item {
+  background: #f5f5f5;
+  padding: 8px;
+  color: inherit;
+  margin: 4px;
+  flex-shrink: 1;
+  flex-grow: 1;
+  flex-basis: 170px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 3px;
+  transition: .3s;
+}
+
+.favorites-item:hover {
+  background: #d5d5d5;
+}
+
+.favorites-item img {
+  max-width: 16px;
+  max-height: 16px;
+  vertical-align: text-top;
+  margin-right: 6px;
+}
+
+/* weather widget */
+.weather-container {
+    display: flex;
+    align-items: center;
+}
+
+.weather-container > * {
+    margin: 0 4px;
+}
+
+.weather-container img {
+    max-height: 2em;
+}
+
+.compass-needle {
+    color: #316dd6;
+    font-size: 1.7em;
+}

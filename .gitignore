@@ -1,0 +1,5 @@
+*.pem
+*.crx
+
+# exclude src/images/wallpaper.jpg because i'm not sure if copyright is okay with that...
+/src/images/wallpaper.jpg
