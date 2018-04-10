@@ -36,10 +36,9 @@
       }
 
       this.node = node;
-      this.apikey = apikey
+      this.apikey = apikey;
+      this.interval = interval;
       this.query = "http://api.openweathermap.org/data/2.5/weather?lat={{lat}}&lon={{lon}}&appid=" + this.apikey;
-
-      this._e = (sel) => this.node.querySelector(sel);
 
       if (location === undefined || location.lat === undefined || location.lon === undefined ) {
         this.getLocation().then(this.initUpdates())
@@ -52,15 +51,16 @@
     }
 
     update() {
-      if (localStorage.getItem('weather:time') + this.interval >= getEpoch()) {
+      if (parseInt(localStorage.getItem('weather:time'), 10) + this.interval >= getEpoch()) {
         try {
-          this.weather = JSON.parse(localStorage.getItem('weather:data'));
+          this.data = JSON.parse(localStorage.getItem('weather:data'));
         } catch(e) {
           console.error("Malformed local storage, discarding...");
           localStorage.removeItem('weather:time');
           localStorage.removeItem('weather:data');
           return this.update();
         }
+
         this.displayCurrent();
         return;
       } else {
@@ -80,10 +80,10 @@
     }
 
     displayCurrent() {
-      this.node.innerHTML = `${this.getLoc()} ${this.getIcon()} ${this.getTemp()} ${this.getCompass()}</span>`;
+      this.node.innerHTML = `${this.getLocationString()} ${this.getIcon()} ${this.getTemp()} ${this.getCompass()}</span>`;
     }
 
-    getLoc() {
+    getLocationString() {
       return '<div class="weather-location">' + escapeHTML(this.data ? this.data.name : 'unknown') + '</div>';
     }
 
@@ -96,7 +96,8 @@
     }
 
     getIcon() {
-      if (this.data.weather === undefined ||
+      if (this.data === undefined ||
+         this.data.weather === undefined ||
          this.data.weather.length == 0 ||
          this.data.weather[0].icon === undefined) {
         return '<span class="error red-text">Error loading weather icon</span>';
@@ -129,7 +130,7 @@
 
       return fetch(query).then(result => result.json()).then((data) => {
         this.data = data;
-        localStorage.setItem('weather:data', data);
+        localStorage.setItem('weather:data', JSON.stringify(data));
         localStorage.setItem('weather:time', getEpoch());
       });
     }
