@@ -91,7 +91,7 @@
     }
 
     getTemp() {
-      return '<div class="weather-temp">' + escapeHTML(this.data ? (this.data.main.temp - 273.15).toFixed(1) : '?') + '°C</div>';
+      return '<div class="weather-temp">' + escapeHTML(this.data ? parseFloat((this.data.main.temp - 273.15).toFixed(1), 10) : '?') + '°C</div>';
     }
 
     getCompass() {
