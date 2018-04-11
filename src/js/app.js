@@ -38,16 +38,16 @@ function init() {
 
   let data, url = settings.wallpaper;
 
-  const clock = new DigitalClock(document.querySelector('.clock-container'))
+  const clock = new DigitalClock(document.querySelector('.clock-container'), settings.clock);
 
-  const searchbar = new SearchBar(document.querySelector('.search-bar'), settings.search)
+  const searchbar = new SearchBar(document.querySelector('.search-bar'), settings.search);
 
-  const weather = new OpenWeatherWidget(document.querySelector('.weather-container'), settings.weather)
+  const weather = new OpenWeatherWidget(document.querySelector('.weather-container'), settings.weather);
 
   chrome.topSites.get((list) => {
     settings.favorites.list = list;
 
-    const favorites = new FavoriteSites(document.querySelector('.favorites-list'), settings.favorites)
+    const favorites = new FavoriteSites(document.querySelector('.favorites-list'), settings.favorites);
   })
 
 

@@ -42,14 +42,15 @@
       this.interval = interval;
       this.query = "http://api.openweathermap.org/data/2.5/weather?lat={{lat}}&lon={{lon}}&appid=" + this.apikey;
 
-      if (location === undefined || location.lat === undefined || location.lon === undefined ) {
+      if (location === undefined ||
+        location.lat === undefined ||
+        location.lon === undefined ) {
         this.getLocation().then(this.initUpdates())
       } else {
         this.lat = location.lat;
         this.lon = location.lon;
         this.initUpdates();
       }
-
     }
 
     update() {

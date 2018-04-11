@@ -48,7 +48,7 @@
       root.title = title;
       root.classList.add("favorites-item");
       root.classList.add("z-depth-1");
-      root.innerHTML = `<img src="${escapeQuotes(this.getFaviconUrl(url))}"><span class="favorites-label">${escapeHTML(title)}</span>`;
+      root.innerHTML = `<img src="${escapeQuotes(this.getFaviconUrl(url))}"/><span class="favorites-label">${escapeHTML(title)}</span>`;
       // hide image when not found
       root.querySelector('img').onerror = function () {this.style.display = 'none'};
       return root;

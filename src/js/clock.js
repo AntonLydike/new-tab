@@ -61,7 +61,9 @@ class DigitalClock {
     this._e(this.selectors.minute).innerText = ("0" + m).slice(-2);
   }
   setSecond(s) {
-    this._e(this.selectors.second).innerText = ("0" + s).slice(-2);
+    let elm = this._e(this.selectors.second);
+    if (elm === null) return;
+    elm.innerText = ("0" + s).slice(-2);
   }
 }
 
