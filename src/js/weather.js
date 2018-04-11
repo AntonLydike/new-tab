@@ -22,7 +22,9 @@
   }
 
   function angleToHTML (angle) {
-    return `<div class="compass-container"><div class="compass-needle" style="transform: rotate(${angle - 90}deg);">&#x27a4;</div></div>`;
+    if (angle === undefined || typeof angle !== 'number' || isNaN(angle)) return "";
+
+    return `<div class="compass-container"><div class="compass-needle" style="transform: rotate(${angle - 90 - 180}deg);">&#x27a4;</div></div>`;
   }
 
   function getEpoch() {
@@ -92,7 +94,7 @@
     }
 
     getCompass() {
-      return angleToHTML(this.data ? escapeHTML(this.data.wind.speed) : 0) + `<span class="wind-speed">${escapeHTML(this.data.wind.speed)}m/s</div>`
+      return angleToHTML(this.data ? this.data.wind.deg : undefined) + `<span class="wind-speed">${escapeHTML(parseFloat((this.data.wind.speed * 3.6).toFixed(1),10))} km/h</div>`
     }
 
     getIcon() {
