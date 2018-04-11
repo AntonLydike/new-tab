@@ -50,6 +50,16 @@ function init() {
     const favorites = new FavoriteSites(document.querySelector('.favorites-list'), settings.favorites);
   })
 
+  let logwrap = (t) => (...a) => console.log(t, ...a);
+
+  const notepad = new Notepad(document.querySelector('.notes-container'), {
+    notes:[{text: "testtext", id:"asd"}],
+    addCallback: logwrap("add"),
+    updateCallback: logwrap("update"),
+    removeCallback: logwrap("remove")
+  })
+
+  window.notepad = notepad;
 
   $('nav').addClass(settings.color.nav);
   $('footer').addClass(settings.color.footer);

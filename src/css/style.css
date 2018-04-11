@@ -17,9 +17,15 @@ body.loaded .loading-overlay {
 
 main {
   flex: 1 0 auto;
+  display: flex;
 }
 main > * {
   margin-top: 24px;
+}
+main > .aside {
+  position: absolute;
+  width: calc((100vw - 1000px) / 2);
+  right: 25px;
 }
 
 footer.page-footer {
@@ -145,3 +151,91 @@ nav ul a {
     color: #316dd6;
     font-size: 1.7em;
 }
+
+/* Notepad */
+.note-control {
+  padding: 4px 8px;
+  border-radius: 3px;
+}
+.note-control input[type="text"] {
+  margin: 0;
+}
+
+.note-list-item {
+  margin-top: 16px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  transition: .2s;
+  background: #fff;
+  height: 53px;
+}
+.note-list-item.removed {
+  animation: .5s ease note-removed;
+  pointer-events: none;
+}
+
+.note-list-item.focused {
+  background: #333;
+  color: #ddd;
+}
+.note-list-item.focused input[type="text"] {
+  color: #ddd;
+}
+
+.note-list-item input[type="text"] {
+    border: none !important;
+    margin: 0;
+    color: rgba(0, 0, 0, 0.87);
+}
+.note-list-item input[type="text"]:focus {
+    box-shadow: none !important;
+}
+
+.note-list-item i.material-icons {
+    margin-left: 4px;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.note-list-item i.material-icons:not(:hover) {
+    color: #ddd !important;
+}
+.note-list-item.focused i.material-icons:not(:hover) {
+    color: #999 !important;
+}
+
+@keyframes note-removed {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    height: 53px;
+    margin-top: 16px;
+  }
+  100% {
+    opacity: 0;
+    height: 0px;
+    margin-top: 0px;
+  }
+}
+
+
+/* input styles */
+/*input:not([type]):focus:not([readonly]) + label.white-focus,
+input[type=text]:not(.browser-default):focus:not([readonly]) + label.white-focus,
+input[type=password]:not(.browser-default):focus:not([readonly]) + label.white-focus,
+input[type=email]:not(.browser-default):focus:not([readonly]) + label.white-focus,
+input[type=url]:not(.browser-default):focus:not([readonly]) + label.white-focus,
+input[type=time]:not(.browser-default):focus:not([readonly]) + label.white-focus,
+input[type=date]:not(.browser-default):focus:not([readonly]) + label.white-focus,
+input[type=datetime]:not(.browser-default):focus:not([readonly]) + label,
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]) + label.white-focus,
+input[type=tel]:not(.browser-default):focus:not([readonly]) + label.white-focus,
+input[type=number]:not(.browser-default):focus:not([readonly]) + label.white-focus,
+input[type=search]:not(.browser-default):focus:not([readonly]) + label.white-focus,
+textarea.materialize-textarea:focus:not([readonly]) + label.white-focus {
+  color: #fff;
+}*/
