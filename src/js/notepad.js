@@ -109,7 +109,7 @@
       this.__updateCallback({id, text});
     }
 
-    removeNote(id) {
+    removeNote(id, doCallback = true) {
       let note = this.getNote(id);
 
       if (id === undefined) return;
@@ -120,23 +120,24 @@
         this.__n.list.removeChild(note.node);
       }, 500);
 
-      this.__removeCallback({id});
+      if (doCallback === true) {
+        this.__removeCallback({id});
+      }
     }
 
     getNote(id) {
       return this.notes.find(x => x.id == id);
     }
 
-    updateData(newData) {
-      // TODO: detect deleted notes
-      newData.forEach((note) => {
-        let n;
-        if ((n = this.getNote(note.id)) === undefined) {
-          this.notes.append(this.noteFromData(note));
-        } else {
-          n.node.querySelector('input').value = note.text;
-        }
-      })
+    externalUpdate({id, text}) {
+      let n = this.getNote(id);
+
+      if (n === undefined) {
+        n = this.newNote(text, id);
+        this.notes.push(n);
+      } else {
+        n.node.querySelector('input').value = text;
+      }
     }
   }
 

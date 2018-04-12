@@ -52,14 +52,47 @@ function init() {
 
   let logwrap = (t) => (...a) => console.log(t, ...a);
 
-  const notepad = new Notepad(document.querySelector('.notes-container'), {
-    notes:[{text: "testtext", id:"asd"}],
-    addCallback: logwrap("add"),
-    updateCallback: logwrap("update"),
-    removeCallback: logwrap("remove")
+  chrome.storage.sync.get(null, (data) => {
+    let notes = [];
+
+    for (let key in data) {
+      if (!data.hasOwnProperty(key)) continue;
+
+      if (key.indexOf('note:') == 0) notes.push({id: key.substr(5), text: data[key]});
+    }
+
+    const notepad = new Notepad(document.querySelector('.notes-container'), {
+      notes,
+      addCallback: ({id, text}) => {
+        chrome.storage.sync.set({[`note:${id}`]: text});
+      },
+      updateCallback: ({id, text}) => {
+        chrome.storage.sync.set({[`note:${id}`]: text});
+      },
+      removeCallback: ({id}) => {
+        chrome.storage.sync.remove([`note:${id}`]);
+      }
+    });
+
+    chrome.storage.onChanged.addListener((data) => {
+      for (let key in data) {
+        if (!data.hasOwnProperty(key)) continue;
+
+        if (key.indexOf('note:') != 0) continue;
+
+        let nfo = data[key];
+        if (nfo.newValue !== undefined) {
+          notepad.externalUpdate({id: key.substr(5), text: nfo.newValue})
+        } else {
+          notepad.removeNote(key.substr(5), false);
+        }
+      }
+    })
+
+    window.notepad = notepad;
   })
 
-  window.notepad = notepad;
+
 
   $('nav').addClass(settings.color.nav);
   $('footer').addClass(settings.color.footer);
